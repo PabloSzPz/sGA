@@ -1,0 +1,164 @@
+﻿<Window x:Class="GSA.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GSA"
+        mc:Ignorable="d"
+        Title="Maximize / Minimize Function - SAG" Height="350" Width="675">
+    <Grid x:Name="ContainerGrid">
+        <Grid x:Name="SeparatorGrid" Background="#FF4E4D49">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" x:Name="ControlPanelGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition x:Name="InputRow" Height="2*"></RowDefinition>
+                    <RowDefinition x:Name="OptionRow" Height="2*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0"  Background="#FF5D5F60" Margin="3">
+                    
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="1*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+                            <ColumnDefinition Width="70"></ColumnDefinition>
+                            <ColumnDefinition Width="100"></ColumnDefinition>
+                            <ColumnDefinition Width="100"></ColumnDefinition>
+                            <ColumnDefinition Width="105"></ColumnDefinition>
+                            <ColumnDefinition Width="50"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="FormulaTextBox" Grid.Column="0" Margin="1" FontSize="12" Background="White" Foreground="#FF464642" SelectionBrush="#FFE06E0A" VerticalAlignment="Center">
+                            <TextBox.Text>Introduzca la fórmula</TextBox.Text>
+                        </TextBox>
+                        <StackPanel Orientation="Horizontal" Grid.Column="1" >
+                            <TextBox Width="30" x:Name="XValueTextBox" Margin="5" FontSize="10" Background="White" Foreground="#FF464642" SelectionBrush="#FFE06E0A" VerticalAlignment="Center"></TextBox>
+                            <TextBlock  FontSize="9" Foreground="Wheat" VerticalAlignment="Center">xValue</TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Column="2">
+                            <TextBox x:Name="MaxCrossOverProbTextBox" Width="30" Height="20" Background="White" Foreground="#FF464642" SelectionBrush="#FFE06E0A" Margin="3"></TextBox>
+                            <TextBlock Width="70" FontSize="9" Foreground="Wheat" VerticalAlignment="Center">CrossOver Prob</TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Column="3">
+                            <TextBox x:Name="MaxMutationProbTextBox" Height="20" Width="30" Background="White" Foreground="#FF464642" SelectionBrush="#FFE06E0A" Margin="3"></TextBox>
+                            <TextBlock Width="70" FontSize="9" Foreground="Wheat" VerticalAlignment="Center">Mutation Prob</TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Column="4">
+                            <TextBox x:Name="MaxTournamentSizeTextBox" Width="30" Height="20" Background="White" Foreground="#FF464642" SelectionBrush="#FFE06E0A" Margin="3"></TextBox>
+                            <TextBlock TextWrapping="Wrap" Width="70" FontSize="9" Foreground="Wheat" VerticalAlignment="Center">Tournament Size</TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Column="5">
+                            <CheckBox x:Name="MaxElitismCheckBox" Width="30" Background="White" Foreground="#FF464642" Margin="3" VerticalAlignment="Center"></CheckBox>
+                            <TextBlock FontSize="9" Margin="-15,0,0,0" Foreground="Wheat" VerticalAlignment="Center" HorizontalAlignment="Left">Elitism</TextBlock>
+                        </StackPanel>
+                        
+                        <StackPanel Orientation="Horizontal" Grid.Column="6">
+                            <Button x:Name="CalcButton" Width="30" FontSize="9" Click="Evaluate_Function_Button_Click">Calc</Button>
+                            <Button x:Name="MaxButton" Width="30" FontSize="9" Click="MaxButton_Click">Max</Button>
+                            <Button x:Name="MinButton"  Width="30" FontSize="9" Click="MinButton_Click">Min</Button>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal" Grid.Column="0">
+                            <TextBox x:Name="BinaryLengthTextBox" TextChanged="BinaryLengthTextBox_TextChanged" Width="40" Height="20" Background="White" Foreground="#FF464642" SelectionBrush="#FFE06E0A" Margin="3"></TextBox>
+                            <TextBlock x:Name="valuesRangeTExtBlock" FontSize="9" Margin="2,0,0,0" Foreground="Wheat" VerticalAlignment="Center" HorizontalAlignment="Left">Min: {0} / Max: {1}</TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Column="1">
+                            <TextBox x:Name="MaxIterationsTextBox" Width="40" Height="20" Background="White" Foreground="#FF464642" SelectionBrush="#FFE06E0A" Margin="3"></TextBox>
+                            <TextBlock x:Name="MaxIterationsTextBlock" FontSize="9" Margin="2,0,0,0" Foreground="Wheat" VerticalAlignment="Center" HorizontalAlignment="Left">Max iterations</TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Column="2">
+                            <TextBox x:Name="PopulationNumberTextBox"  Width="40" Height="20" Background="White" Foreground="#FF464642" SelectionBrush="#FFE06E0A" Margin="3"></TextBox>
+                            <TextBlock x:Name="PopulationNumberBlock" FontSize="9" Margin="2,0,0,0" Foreground="Wheat" VerticalAlignment="Center" HorizontalAlignment="Left">Population Number</TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Column="3">
+                            <CheckBox x:Name="DieFactorCheckBox" Width="30" Background="White" Foreground="#FF464642" Margin="3" VerticalAlignment="Center"></CheckBox>
+                            <TextBlock FontSize="9" Margin="-15,0,0,0" Foreground="Wheat" VerticalAlignment="Center" HorizontalAlignment="Left">Die factor</TextBlock>
+                        </StackPanel>
+                    </Grid>
+
+                    
+
+                    
+                </Grid>
+                <Grid Grid.Row="1"  Background="#FF5D5F60" Margin="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="2*"></RowDefinition>
+                        <RowDefinition Height="2*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                            <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal" Grid.Column="0">
+                            <TextBox x:Name="CrossOverProbTextBox" Width="40" Background="White" Foreground="#FF464642" SelectionBrush="#FFE06E0A" Margin="3"></TextBox>
+                            <TextBlock Width="70" FontSize="9" Foreground="Wheat" VerticalAlignment="Center">CrossOver Prob</TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Grid.Column="1">
+                            <TextBox x:Name="MutationProbTextBox" Width="40" Background="White" Foreground="#FF464642" SelectionBrush="#FFE06E0A" Margin="3"></TextBox>
+                            <TextBlock Width="70" FontSize="9" Foreground="Wheat" VerticalAlignment="Center">Mutation Prob</TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Grid.Column="2">
+                            <TextBox x:Name="TournamentSizeTextBox" Width="40" Background="White" Foreground="#FF464642" SelectionBrush="#FFE06E0A" Margin="3"></TextBox>
+                            <TextBlock TextWrapping="Wrap" Width="70" FontSize="9" Foreground="Wheat" VerticalAlignment="Center">Tournament Size</TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Grid.Column="3">
+                            <CheckBox x:Name="ElitismCheckBox" Width="30" Background="White" Foreground="#FF464642" Margin="3"></CheckBox>
+                            <TextBlock FontSize="9" Foreground="Wheat" VerticalAlignment="Center" HorizontalAlignment="Left">Elitism</TextBlock>
+                        </StackPanel>
+                        <Button Grid.Column="4" Margin="2" Click="GA_Simple_Button_Click">GA Find Gene chain</Button>
+                    </Grid>
+                    <Grid Grid.Row="1"></Grid>
+                </Grid>
+            </Grid>
+            <Grid Grid.Row="1" x:Name="LogGrid" Margin="3" >
+                <Grid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem x:Name="ClearTextBox_MenuItem" Click="ClearTextBox_MenuItem_Click" Header="Clear log"></MenuItem>
+                    </ContextMenu>
+                </Grid.ContextMenu>
+                <ScrollViewer>
+                    <RichTextBox x:Name="LogTextBox" Cursor="Hand" CaretBrush="#FFEBDC05" IsReadOnly="True"  Background="Gray" Foreground="#FFF1EA01" SelectionBrush="#7FF38B23">
+                        <RichTextBox.Template>
+                            <ControlTemplate TargetType="{x:Type Control}">
+                                <Border x:Name="bg" BorderBrush="#FF887F7F" BorderThickness="2">
+                                    <ScrollViewer x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="BorderBrush" TargetName="bg" Value="#FF887F7F"/>
+                                        <Setter Property="BorderThickness" TargetName="bg" Value="2"/>
+                                    </Trigger>
+                                    <Trigger Property="IsFocused" Value="True">
+                                        <Setter Property="BorderBrush" TargetName="bg" Value="#FF887F7F"/>
+                                        <Setter Property="BorderThickness" TargetName="bg" Value="2"/>
+                                    </Trigger>
+
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </RichTextBox.Template>
+                    </RichTextBox>
+                </ScrollViewer>
+                
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
