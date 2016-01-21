@@ -5,137 +5,197 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GSA"
         mc:Ignorable="d"
-        Title="Maximize / Minimize Function - SAG" Height="350" Width="675">
+        Title="Maximize / Minimize Function - SAG" Height="600" Width="875">
     <Grid x:Name="ContainerGrid">
         <Grid x:Name="SeparatorGrid" Background="#FF4E4D49">
             <Grid.RowDefinitions>
-                <RowDefinition Height="100"></RowDefinition>
+                <RowDefinition Height="200"></RowDefinition>
                 <RowDefinition Height="1*"></RowDefinition>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" x:Name="ControlPanelGrid">
+            <Grid x:Name="AlgorithmsGrid" Grid.Row="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition x:Name="InputRow" Height="2*"></RowDefinition>
-                    <RowDefinition x:Name="OptionRow" Height="2*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="15"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0"  Background="#FF5D5F60" Margin="3">
-                    
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1*"></RowDefinition>
-                        <RowDefinition Height="1*"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150"></ColumnDefinition>
-                            <ColumnDefinition Width="70"></ColumnDefinition>
-                            <ColumnDefinition Width="100"></ColumnDefinition>
-                            <ColumnDefinition Width="100"></ColumnDefinition>
-                            <ColumnDefinition Width="105"></ColumnDefinition>
-                            <ColumnDefinition Width="50"></ColumnDefinition>
-                            <ColumnDefinition Width="*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <TextBox x:Name="FormulaTextBox" Grid.Column="0" Margin="1" FontSize="12" Background="White" Foreground="#FF464642" SelectionBrush="#FFE06E0A" VerticalAlignment="Center">
-                            <TextBox.Text>Introduzca la fórmula</TextBox.Text>
-                        </TextBox>
-                        <StackPanel Orientation="Horizontal" Grid.Column="1" >
-                            <TextBox Width="30" x:Name="XValueTextBox" Margin="5" FontSize="10" Background="White" Foreground="#FF464642" SelectionBrush="#FFE06E0A" VerticalAlignment="Center"></TextBox>
-                            <TextBlock  FontSize="9" Foreground="Wheat" VerticalAlignment="Center">xValue</TextBlock>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Grid.Column="2">
-                            <TextBox x:Name="MaxCrossOverProbTextBox" Width="30" Height="20" Background="White" Foreground="#FF464642" SelectionBrush="#FFE06E0A" Margin="3"></TextBox>
-                            <TextBlock Width="70" FontSize="9" Foreground="Wheat" VerticalAlignment="Center">CrossOver Prob</TextBlock>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Grid.Column="3">
-                            <TextBox x:Name="MaxMutationProbTextBox" Height="20" Width="30" Background="White" Foreground="#FF464642" SelectionBrush="#FFE06E0A" Margin="3"></TextBox>
-                            <TextBlock Width="70" FontSize="9" Foreground="Wheat" VerticalAlignment="Center">Mutation Prob</TextBlock>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Grid.Column="4">
-                            <TextBox x:Name="MaxTournamentSizeTextBox" Width="30" Height="20" Background="White" Foreground="#FF464642" SelectionBrush="#FFE06E0A" Margin="3"></TextBox>
-                            <TextBlock TextWrapping="Wrap" Width="70" FontSize="9" Foreground="Wheat" VerticalAlignment="Center">Tournament Size</TextBlock>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Grid.Column="5">
-                            <CheckBox x:Name="MaxElitismCheckBox" Width="30" Background="White" Foreground="#FF464642" Margin="3" VerticalAlignment="Center"></CheckBox>
-                            <TextBlock FontSize="9" Margin="-15,0,0,0" Foreground="Wheat" VerticalAlignment="Center" HorizontalAlignment="Left">Elitism</TextBlock>
-                        </StackPanel>
-                        
-                        <StackPanel Orientation="Horizontal" Grid.Column="6">
-                            <Button x:Name="CalcButton" Width="30" FontSize="9" Click="Evaluate_Function_Button_Click">Calc</Button>
-                            <Button x:Name="MaxButton" Width="30" FontSize="9" Click="MaxButton_Click">Max</Button>
-                            <Button x:Name="MinButton"  Width="30" FontSize="9" Click="MinButton_Click">Min</Button>
-                        </StackPanel>
-                    </Grid>
-                    <Grid Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*"></ColumnDefinition>
-                            <ColumnDefinition Width="1*"></ColumnDefinition>
-                            <ColumnDefinition Width="1*"></ColumnDefinition>
-                            <ColumnDefinition Width="1*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Orientation="Horizontal" Grid.Column="0">
-                            <TextBox x:Name="BinaryLengthTextBox" TextChanged="BinaryLengthTextBox_TextChanged" Width="40" Height="20" Background="White" Foreground="#FF464642" SelectionBrush="#FFE06E0A" Margin="3"></TextBox>
-                            <TextBlock x:Name="valuesRangeTExtBlock" FontSize="9" Margin="2,0,0,0" Foreground="Wheat" VerticalAlignment="Center" HorizontalAlignment="Left">Min: {0} / Max: {1}</TextBlock>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Grid.Column="1">
-                            <TextBox x:Name="MaxIterationsTextBox" Width="40" Height="20" Background="White" Foreground="#FF464642" SelectionBrush="#FFE06E0A" Margin="3"></TextBox>
-                            <TextBlock x:Name="MaxIterationsTextBlock" FontSize="9" Margin="2,0,0,0" Foreground="Wheat" VerticalAlignment="Center" HorizontalAlignment="Left">Max iterations</TextBlock>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Grid.Column="2">
-                            <TextBox x:Name="PopulationNumberTextBox"  Width="40" Height="20" Background="White" Foreground="#FF464642" SelectionBrush="#FFE06E0A" Margin="3"></TextBox>
-                            <TextBlock x:Name="PopulationNumberBlock" FontSize="9" Margin="2,0,0,0" Foreground="Wheat" VerticalAlignment="Center" HorizontalAlignment="Left">Population Number</TextBlock>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal" Grid.Column="3">
-                            <CheckBox x:Name="DieFactorCheckBox" Width="30" Background="White" Foreground="#FF464642" Margin="3" VerticalAlignment="Center"></CheckBox>
-                            <TextBlock FontSize="9" Margin="-15,0,0,0" Foreground="Wheat" VerticalAlignment="Center" HorizontalAlignment="Left">Die factor</TextBlock>
-                        </StackPanel>
-                    </Grid>
+                <TabControl Grid.Row="0" x:Name="AlgorithmsTabControl">
+                    <TabItem Header="Maximize / Minimize Function GSA" HorizontalAlignment="Left" Margin="-2,-2,-2.2,0" Width="201" Background="#99e599">
+                        <Grid  x:Name="ControlPanelGrid">
+                            <Grid.RowDefinitions>
+                                <RowDefinition x:Name="InputRow" Height="2*"></RowDefinition>
+                                <RowDefinition x:Name="OptionRow" Height="2*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0"  Background="#FF5D5F60" Margin="3">
 
-                    
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"></RowDefinition>
+                                    <RowDefinition Height="1*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                        <ColumnDefinition Width="0.7*"></ColumnDefinition>
+                                        <ColumnDefinition Width="0.7*"></ColumnDefinition>
+                                        <ColumnDefinition Width="0.7*"></ColumnDefinition>
+                                        <ColumnDefinition Width="0.7*"></ColumnDefinition>
+                                        <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                                        <ColumnDefinition Width="*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox x:Name="FormulaTextBox" Grid.Column="0" Margin="1" FontSize="12" Background="White" Foreground="#FF464642" SelectionBrush="#FFE06E0A" VerticalAlignment="Center">
+                                        <TextBox.Text>(3*[x] + 2*Pow([x],3))/2*[x]</TextBox.Text>
+                                    </TextBox>
+                                    <StackPanel Orientation="Horizontal" Grid.Column="1" >
+                                        <TextBox Width="30" x:Name="XValueTextBox" Margin="5" FontSize="10" Background="White" Foreground="#FF464642" SelectionBrush="#FFE06E0A" VerticalAlignment="Center" Text="1"></TextBox>
+                                        <TextBlock  FontSize="9" Foreground="Wheat" VerticalAlignment="Center">xValue</TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Grid.Column="2">
+                                        <TextBox x:Name="MaxCrossOverProbTextBox" Width="30" Height="20" Background="White" Foreground="#FF464642" SelectionBrush="#FFE06E0A" Margin="3"></TextBox>
+                                        <TextBlock Width="70" FontSize="9" Foreground="Wheat" VerticalAlignment="Center">CrossOver Prob</TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Grid.Column="3">
+                                        <TextBox x:Name="MaxMutationProbTextBox" Height="20" Width="30" Background="White" Foreground="#FF464642" SelectionBrush="#FFE06E0A" Margin="3"></TextBox>
+                                        <TextBlock Width="70" FontSize="9" Foreground="Wheat" VerticalAlignment="Center">Mutation Prob</TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Grid.Column="4">
+                                        <TextBox Text="50" x:Name="PopulationNumberTextBox"  Width="40" Height="20" Background="White" Foreground="#FF464642" SelectionBrush="#FFE06E0A" Margin="3"></TextBox>
+                                        <TextBlock x:Name="PopulationNumberBlock" FontSize="9" Margin="2,0,0,0" Foreground="Wheat" VerticalAlignment="Center" HorizontalAlignment="Left">Population Number</TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Grid.Column="5">
+                                        <CheckBox x:Name="MaxElitismCheckBox" Width="30" Background="White" Foreground="#FF464642" Margin="3" VerticalAlignment="Center"></CheckBox>
+                                        <TextBlock FontSize="9" Margin="-15,0,0,0" Foreground="Wheat" VerticalAlignment="Center" HorizontalAlignment="Left">Elitism</TextBlock>
+                                    </StackPanel>
 
-                    
-                </Grid>
-                <Grid Grid.Row="1"  Background="#FF5D5F60" Margin="3">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="2*"></RowDefinition>
-                        <RowDefinition Height="2*"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*"></ColumnDefinition>
-                            <ColumnDefinition Width="1*"></ColumnDefinition>
-                            <ColumnDefinition Width="1*"></ColumnDefinition>
-                            <ColumnDefinition Width="0.5*"></ColumnDefinition>
-                            <ColumnDefinition Width="1*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Orientation="Horizontal" Grid.Column="0">
-                            <TextBox x:Name="CrossOverProbTextBox" Width="40" Background="White" Foreground="#FF464642" SelectionBrush="#FFE06E0A" Margin="3"></TextBox>
-                            <TextBlock Width="70" FontSize="9" Foreground="Wheat" VerticalAlignment="Center">CrossOver Prob</TextBlock>
-                        </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Grid.Column="6" HorizontalAlignment="Center">
+                                        <Button x:Name="CalcButton" Width="30" FontSize="9" Click="Evaluate_Function_Button_Click">Calc</Button>
+                                        <Button x:Name="MaxButton" Width="30" FontSize="9" Click="MaxButton_Click">Max</Button>
+                                        <Button x:Name="MinButton"  Width="30" FontSize="9" Click="MinButton_Click">Min</Button>
+                                    </StackPanel>
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                                        <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                                        <ColumnDefinition Width="0.5*"></ColumnDefinition>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Orientation="Horizontal" Grid.Column="0">
+                                        <TextBox  x:Name="BinaryLengthTextBox" TextChanged="BinaryLengthTextBox_TextChanged" Width="40" Height="20" Background="GreenYellow" Foreground="#FF464642" SelectionBrush="#FFE06E0A" Margin="3"></TextBox>
+                                        <TextBlock x:Name="valuesRangeTExtBlock" FontSize="9" Margin="2,0,0,0" Foreground="Wheat" VerticalAlignment="Center" HorizontalAlignment="Left">Min: {0} / Max: {1}</TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                        <TextBox Text="300" x:Name="MaxIterationsTextBox" Width="40" Height="20" Background="White" Foreground="#FF464642" SelectionBrush="#FFE06E0A" Margin="3"></TextBox>
+                                        <TextBlock x:Name="MaxIterationsTextBlock" FontSize="9" Margin="2,0,0,0" Foreground="Wheat" VerticalAlignment="Center" HorizontalAlignment="Left">Max iterations</TextBlock>
+                                    </StackPanel>
+                                    
+                                    <StackPanel Orientation="Horizontal" Grid.Column="2">
+                                        <CheckBox x:Name="DieFactorCheckBox" Width="30" Background="White" Foreground="#FF464642" Margin="3" VerticalAlignment="Center" IsChecked="True"></CheckBox>
+                                        <TextBlock FontSize="9" Margin="-15,0,0,0" Foreground="Wheat" VerticalAlignment="Center" HorizontalAlignment="Left">Die factor</TextBlock>
+                                    </StackPanel>
 
-                        <StackPanel Orientation="Horizontal" Grid.Column="1">
-                            <TextBox x:Name="MutationProbTextBox" Width="40" Background="White" Foreground="#FF464642" SelectionBrush="#FFE06E0A" Margin="3"></TextBox>
-                            <TextBlock Width="70" FontSize="9" Foreground="Wheat" VerticalAlignment="Center">Mutation Prob</TextBlock>
-                        </StackPanel>
+                                    <StackPanel Orientation="Vertical" Margin="2" Grid.Column="4" Background="#797979">
 
-                        <StackPanel Orientation="Horizontal" Grid.Column="2">
-                            <TextBox x:Name="TournamentSizeTextBox" Width="40" Background="White" Foreground="#FF464642" SelectionBrush="#FFE06E0A" Margin="3"></TextBox>
-                            <TextBlock TextWrapping="Wrap" Width="70" FontSize="9" Foreground="Wheat" VerticalAlignment="Center">Tournament Size</TextBlock>
-                        </StackPanel>
+                                        <TextBlock FontWeight="Bold" FontSize="9" Margin="5,0,0,3" Foreground="Beige" VerticalAlignment="Center" HorizontalAlignment="Left">Pulsa Calc solo para calcular el valor de la formula (recuerda poner valor a la X)</TextBlock>
+                                        <TextBlock FontWeight="Bold" FontSize="9" Margin="5,0,0,0" Foreground="Beige" VerticalAlignment="Center" HorizontalAlignment="Left">Pulsa MAX o MIN para realizar el algoritmo genetico</TextBlock>
+                                    </StackPanel>
+                                    
+                                </Grid>
 
-                        <StackPanel Orientation="Horizontal" Grid.Column="3">
-                            <CheckBox x:Name="ElitismCheckBox" Width="30" Background="White" Foreground="#FF464642" Margin="3"></CheckBox>
-                            <TextBlock FontSize="9" Foreground="Wheat" VerticalAlignment="Center" HorizontalAlignment="Left">Elitism</TextBlock>
-                        </StackPanel>
-                        <Button Grid.Column="4" Margin="2" Click="GA_Simple_Button_Click">GA Find Gene chain</Button>
-                    </Grid>
-                    <Grid Grid.Row="1"></Grid>
-                </Grid>
+
+
+
+                            </Grid>
+                            <Grid x:Name="InstructionGrid1" Grid.Row="1" Background="#797979">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0"></Grid>
+                                <StackPanel>
+                                   
+                                    <TextBlock TextWrapping="Wrap" Foreground="WhiteSmoke"  Margin="5,0,5,0" Text="CrossOver Probability: La probabilidad de intercambio de genes durante el operador de cruce [0,1]"></TextBlock>
+                                    <TextBlock TextWrapping="Wrap" Foreground="WhiteSmoke"  Margin="5,0,5,0" Text="Mutation Probability: La probabilidad de cambio de gen durante el operador de mutación [0,1]"></TextBlock>
+                                    <TextBlock TextWrapping="Wrap" Foreground="WhiteSmoke"  Margin="5,0,5,0" Text="Population Num: Población de las generaciones"></TextBlock>
+                                   
+                                </StackPanel>
+                                <Grid Grid.Column="1">
+                                    <StackPanel>
+
+                                        <TextBlock Foreground="GreenYellow"  Margin="5,0,5,0" TextWrapping="Wrap" Text="Este textbox es para indicar la longitud del individuo (y por lo tanto el rango de valores a maximizar/minimizar)"></TextBlock>
+                                        <TextBlock Foreground="WhiteSmoke"  Margin="5,0,5,0" Text="Max iteration: Cuando parará de buscar de mejorar la solución"></TextBlock>
+                                        <TextBlock Foreground="WhiteSmoke"  Margin="5,0,5,0" Text="Die Factor: Indica se se va a usar el factor de muerte"></TextBlock>
+                                        <TextBlock Foreground="BurlyWood"  Margin="5,0,5,0" Text="Ej: (3*[x] + 2*Pow([x],3))/2*[x] = (3x + 2^3) / 2x"></TextBlock>
+
+                                    </StackPanel>
+                                </Grid>
+                                
+                            </Grid>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Find Gene Chain GSA " Background="#b3d9ff">
+                        <Grid Grid.Row="1"  Background="#FF5D5F60" Margin="3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"></RowDefinition>
+                                <RowDefinition Height="5*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.6*"></ColumnDefinition>
+                                    <ColumnDefinition Width="0.6*"></ColumnDefinition>
+                                    <ColumnDefinition Width="0.6*"></ColumnDefinition>
+                                    <ColumnDefinition Width="0.3*"></ColumnDefinition>
+                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    <ColumnDefinition Width="0.2*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Orientation="Horizontal" Grid.Column="0">
+                                    <TextBox x:Name="CrossOverProbTextBox" Width="40" Background="White" Foreground="#FF464642" SelectionBrush="#FFE06E0A" Margin="3"></TextBox>
+                                    <TextBlock Width="70" FontSize="9" Foreground="Wheat" VerticalAlignment="Center">CrossOver Prob</TextBlock>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                    <TextBox x:Name="MutationProbTextBox" Width="40" Background="White" Foreground="#FF464642" SelectionBrush="#FFE06E0A" Margin="3"></TextBox>
+                                    <TextBlock Width="70" FontSize="9" Foreground="Wheat" VerticalAlignment="Center">Mutation Prob</TextBlock>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Grid.Column="2">
+                                    <TextBox x:Name="TournamentSizeTextBox" Width="30" Background="White" Foreground="#FF464642" SelectionBrush="#FFE06E0A" Margin="3"></TextBox>
+                                    <TextBlock TextWrapping="Wrap" Width="70" FontSize="9" Foreground="Wheat" VerticalAlignment="Center">Tournament Size</TextBlock>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Grid.Column="3" VerticalAlignment="Center">
+                                    <CheckBox x:Name="ElitismCheckBox" Width="30" Background="White" Foreground="#FF464642" Margin="0,0,-10,0"></CheckBox>
+                                    <TextBlock FontSize="9" Foreground="Wheat" VerticalAlignment="Center" HorizontalAlignment="Left">Elitism</TextBlock>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Grid.Column="4">
+                                    <TextBox x:Name="SolutionTextBox" Width="360" Text="1111000000000000000000000000000000000000000000000000000000001111" Background="Cornsilk" Foreground="#FF464642" SelectionBrush="#FFE06E0A" FontSize="10" Margin="5" MaxLength="64"></TextBox>
+                                    <TextBlock TextWrapping="Wrap" Width="70" FontSize="9" Foreground="Wheat" VerticalAlignment="Center">Sol</TextBlock>
+                                </StackPanel>
+
+                                <Button Grid.Column="5" Margin="2" Click="GA_Simple_Button_Click">Go</Button>
+                            </Grid>
+                            <Grid x:Name="InstructionGrid" Grid.Row="1" Background="#797979">
+                                <StackPanel>
+                                    <TextBlock FontSize="13" FontWeight="Bold" Foreground="YellowGreen" Margin="5,10,0,0" Text="El algoritmo genetico tratará de buscar la SOLUCION a partir de una población inicial de 50 individuos"></TextBlock>
+                                    <TextBlock Foreground="WhiteSmoke"  Margin="50,0,5,0" Text="CrossOver Probability: La probabilidad de intercambio de genes durante el operador de cruce [0,1]"></TextBlock>
+                                    <TextBlock Foreground="WhiteSmoke"  Margin="50,0,5,0" Text="Mutation Probability: La probabilidad de cambio de gen durante el operador de mutación [0,1]"></TextBlock>
+                                    <TextBlock Foreground="WhiteSmoke"  Margin="50,0,5,0" Text="Tournament Size: Tamaño de la muestra para seleccionar los individuos del cruce [2,50]"></TextBlock>
+                                    <TextBlock Foreground="WhiteSmoke"  Margin="50,0,5,0" Text="Elitism: Si preservaremos o no el mejor individuo de la población en cada generación [check, uncheck]"></TextBlock>
+                                    <TextBlock Foreground="WhiteSmoke"  Margin="50,0,5,0" Text="Solution: Solución a generar [64 bytes -> 0 y 1]"></TextBlock>
+                                    <TextBlock Foreground="Wheat"  Margin="70,0,5,0" Text="Ejemplo: 1111000000000000000000000000000000000000000000000000000000001111"></TextBlock>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+                <TextBlock Foreground="Orange" Grid.Row="1" HorizontalAlignment="Center"> Para limpiar el contenido del log ----> CLICK DERECHO sobre la caja de texto</TextBlock>
             </Grid>
+
             <Grid Grid.Row="1" x:Name="LogGrid" Margin="3" >
                 <Grid.ContextMenu>
                     <ContextMenu>
                         <MenuItem x:Name="ClearTextBox_MenuItem" Click="ClearTextBox_MenuItem_Click" Header="Clear log"></MenuItem>
                     </ContextMenu>
                 </Grid.ContextMenu>
-                <ScrollViewer>
+                <ScrollViewer x:Name="scrollEl">
                     <RichTextBox x:Name="LogTextBox" Cursor="Hand" CaretBrush="#FFEBDC05" IsReadOnly="True"  Background="Gray" Foreground="#FFF1EA01" SelectionBrush="#7FF38B23">
                         <RichTextBox.Template>
                             <ControlTemplate TargetType="{x:Type Control}">

@@ -31,8 +31,8 @@ namespace GSA
 
             MaxCrossOverProbTextBox.Text = GSA.GAMax.Algorithm.UniformRate.ToString();
             MaxMutationProbTextBox.Text = GSA.GAMax.Algorithm.MutationRate.ToString();
-            MaxTournamentSizeTextBox.Text = GSA.GAMax.Algorithm.TournamentSize.ToString();
             MaxElitismCheckBox.IsChecked = GSA.GAMax.Algorithm.Elitism;
+            BinaryLengthTextBox.Text = "10";
 
         }
 
@@ -52,6 +52,8 @@ namespace GSA
             } catch(Exception ex) {
                 System.Windows.MessageBox.Show(ex.ToString());
             }
+
+            scrollEl.ScrollToBottom();
           
         }
 
@@ -64,35 +66,53 @@ namespace GSA
 
             LogTextBox log = new GSA.LogTextBox(LogTextBox);
 
-            GSA.GA.FitnessCalc.setSolution("1111000000000000000000000000000000000000000000000000000000001111");
-            GSA.GA.Population myPop = new GSA.GA.Population(50, true);
+            String solutionSelected = SolutionTextBox.Text;
+                if (validateSol(solutionSelected)) {
+                GSA.GA.FitnessCalc.setSolution(solutionSelected);
+                GSA.GA.Population myPop = new GSA.GA.Population(50, true);
 
-            int generationCount = 0;
-            while (myPop.getFittest().getFitness() < GSA.GA.FitnessCalc.getMaxFitness()) {
-                generationCount++;
-                //log.Write("Generation: " + generationCount + " Fittest: " + myPop.getFittest().getFitness(), Brushes.Yellow);
-                myPop = GSA.GA.Algorithm.evolvePopulation(myPop);
+                int generationCount = 0;
+                while (myPop.getFittest().getFitness() < GSA.GA.FitnessCalc.getMaxFitness()) {
+                    generationCount++;
+                    log.Write("Generation: " + generationCount + " Fittest: " + myPop.getFittest().getFitness(), Brushes.Yellow);
+                    myPop = GSA.GA.Algorithm.evolvePopulation(myPop);
+                }
+                log.Write("Solution found!", Brushes.GreenYellow);
+                log.Write("Generation: " + generationCount);
+                log.Write("Genes:");
+                log.Write(myPop.getFittest().ToString());
+            } else {
+                log.Write("La solución no es válida, recuerda: 64 bits de 0 y 1", Brushes.Red);
             }
-            log.Write("Solution found!", Brushes.GreenYellow);
-            log.Write("Generation: " + generationCount);
-            log.Write("Genes:");
-            log.Write(myPop.getFittest().ToString());
+            scrollEl.ScrollToBottom();
+        }
+
+        private bool validateSol(string solutionSelected) {
+
+            if (solutionSelected.Length != 64) return false;
+            foreach(char ch in solutionSelected.ToArray()) {
+                if (!(ch.Equals('0') || ch.Equals('1'))) return false;
+            }
+            return true;
         }
 
         private void MaxButton_Click(object sender, RoutedEventArgs e) {
-
+            this.Cursor = Cursors.Wait;
             performAlgorithm(0);
-
+            scrollEl.ScrollToBottom();
+            this.Cursor = Cursors.Arrow;
         }
 
         private void MinButton_Click(object sender, RoutedEventArgs e) {
+            this.Cursor = Cursors.Wait;
             performAlgorithm(1);
+            scrollEl.ScrollToBottom();
+            this.Cursor = Cursors.Arrow;
         }
 
         private void performAlgorithm(int maxOrMin) {
             GSA.GAMax.Algorithm.UniformRate = Double.Parse(MaxCrossOverProbTextBox.Text);
             GSA.GAMax.Algorithm.MutationRate = Double.Parse(MaxMutationProbTextBox.Text);
-            GSA.GAMax.Algorithm.TournamentSize = Int32.Parse(MaxTournamentSizeTextBox.Text);
             GSA.GAMax.Algorithm.Elitism = MaxElitismCheckBox.IsChecked.Value;
             GSA.GAMax.Algorithm.DieFactor = DieFactorCheckBox.IsChecked.Value;
             GSA.GAMax.Algorithm.Rnd = new Random();
@@ -119,14 +139,14 @@ namespace GSA
 
             int generationCount = 0;
             int MaxGeneration = int.Parse(MaxIterationsTextBox.Text);
-            while (generationCount <= MaxGeneration) {
+            while (generationCount < MaxGeneration) {
                 generationCount++;
                 //log.Write("Generation: " + generationCount + " Fittest: " + myPop.getFittest().getFitness(), Brushes.Yellow);
                 GSA.GAMax.FitnessCalc.CurrentPopulation = maxPop;
                 maxPop = GSA.GAMax.Algorithm.evolvePopulation(maxPop);
 
             }
-            log.Write("Solution found!", Brushes.GreenYellow);
+            log.Write("Best Solution found!", Brushes.GreenYellow);
             log.Write("Generation: " + generationCount);
             log.Write("Genes:");
             GSA.GAMax.Individual bestSolutionFound = GSA.GAMax.FitnessCalc.getFittest();
